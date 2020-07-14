@@ -1,19 +1,21 @@
 package com.ws.rodrigo.modelo;
 
+import com.ws.rodrigo.dto.PessoaDTO;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.validator.constraints.NotBlank;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -28,13 +30,20 @@ public class Pessoa implements Serializable {
 
     @Column(name = "nome", length = 50, nullable = false)
     @XmlElement(required = true)
-    private String nome;
+    @NotBlank @NotNull
+    private String nomePessoa;
 
     @Column(name = "email", length = 50, nullable = false)
     @XmlElement(required = true)
-    private String email;
+    @NotBlank @NotNull
+    private String emailPessoa;
 
     public Pessoa() {
+    }
+    
+    public Pessoa(PessoaDTO pessoaDTO){
+        this.nomePessoa = pessoaDTO.getNome();
+        this.emailPessoa = pessoaDTO.getEmail();
     }
 
     public Integer getId() {
@@ -45,20 +54,20 @@ public class Pessoa implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomePessoa() {
+        return nomePessoa;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomePessoa(String nomePessoa) {
+        this.nomePessoa = nomePessoa;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailPessoa() {
+        return emailPessoa;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailPessoa(String emailPessoa) {
+        this.emailPessoa = emailPessoa;
     }
 
     @Override

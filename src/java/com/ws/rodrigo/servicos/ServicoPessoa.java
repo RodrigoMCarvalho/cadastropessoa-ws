@@ -1,6 +1,7 @@
 package com.ws.rodrigo.servicos;
 
 import com.ws.rodrigo.dao.PessoaDAO;
+import com.ws.rodrigo.dto.PessoaDTO;
 import com.ws.rodrigo.modelo.Pessoa;
 import java.util.List;
 import javax.ejb.EJB;
@@ -22,10 +23,15 @@ public class ServicoPessoa {
     public List<Pessoa> listaPessoas() {
         return dao.getLista();
     }
+    
+    @WebMethod
+    public Pessoa buscaPorId(@WebParam(name = "id") @XmlElement(required = true) Integer id) {
+        return dao.buscaPorId(id);
+    }
 
     @WebMethod
-    public Pessoa inserir(@WebParam(name = "pessoa") @XmlElement(required = true) Pessoa pessoa) {
-        return dao.inserir(pessoa);
+    public Pessoa inserir(@WebParam(name = "pessoa") @XmlElement(required = true) PessoaDTO pessoaDTO) {
+        return dao.inserir(pessoaDTO);
     }
 
     @WebMethod
@@ -37,4 +43,5 @@ public class ServicoPessoa {
     public boolean remover(@WebParam(name = "id") @XmlElement(required = true) Integer id) {
         return dao.remover(id);
     }
+    
 }

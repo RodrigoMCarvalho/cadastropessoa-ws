@@ -1,5 +1,6 @@
 package com.ws.rodrigo.dao;
 
+import com.ws.rodrigo.dto.PessoaDTO;
 import com.ws.rodrigo.modelo.Pessoa;
 import java.io.Serializable;
 import java.util.List;
@@ -18,7 +19,8 @@ public class PessoaDAO implements Serializable {
     public PessoaDAO() {
     }
 
-    public Pessoa inserir(Pessoa pessoa) {
+    public Pessoa inserir(PessoaDTO pessoaDTO) {
+        Pessoa pessoa = new Pessoa(pessoaDTO);
         em.persist(pessoa);
         return pessoa;
     }
@@ -27,10 +29,15 @@ public class PessoaDAO implements Serializable {
         em.merge(pessoa);
         return pessoa;
     }
+    
+    public Pessoa buscaPorId(Integer id) {
+        return em.find(Pessoa.class, id);
+    }
 
     public boolean remover(Integer id) {
         try {
-            em.find(Pessoa.class, id);
+            Pessoa pessoa = em.find(Pessoa.class, id);
+            em.remove(pessoa);
             return true;
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
