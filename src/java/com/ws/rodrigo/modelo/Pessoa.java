@@ -31,19 +31,19 @@ public class Pessoa implements Serializable {
     @Column(name = "nome", length = 50, nullable = false)
     @XmlElement(required = true)
     @NotBlank @NotNull
-    private String nomePessoa;
+    private String nome;
 
     @Column(name = "email", length = 50, nullable = false)
     @XmlElement(required = true)
     @NotBlank @NotNull
-    private String emailPessoa;
+    private String email;
 
     public Pessoa() {
     }
     
     public Pessoa(PessoaDTO pessoaDTO){
-        this.nomePessoa = pessoaDTO.getNome();
-        this.emailPessoa = pessoaDTO.getEmail();
+        this.nome = pessoaDTO.getNome();
+        this.email = pessoaDTO.getEmail();
     }
 
     public Integer getId() {
@@ -55,19 +55,19 @@ public class Pessoa implements Serializable {
     }
 
     public String getNomePessoa() {
-        return nomePessoa;
+        return nome;
     }
 
     public void setNomePessoa(String nomePessoa) {
-        this.nomePessoa = nomePessoa;
+        this.nome = nomePessoa;
     }
 
     public String getEmailPessoa() {
-        return emailPessoa;
+        return email;
     }
 
     public void setEmailPessoa(String emailPessoa) {
-        this.emailPessoa = emailPessoa;
+        this.email = emailPessoa;
     }
 
     @Override

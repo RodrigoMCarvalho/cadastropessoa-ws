@@ -2,6 +2,7 @@ package com.ws.rodrigo.dao;
 
 import com.ws.rodrigo.dto.PessoaDTO;
 import com.ws.rodrigo.modelo.Pessoa;
+import com.ws.rodrigo.validacao.NotFoundExpection;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -10,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 public class PessoaDAO implements Serializable {
-
+    
     private List<Pessoa> lista;
 
     @PersistenceContext(unitName = "ServicoPessoaPU")
@@ -30,11 +31,16 @@ public class PessoaDAO implements Serializable {
         return pessoa;
     }
     
-    public Pessoa buscaPorId(Integer id) {
-        return em.find(Pessoa.class, id);
+    public Pessoa buscaPorId(Integer id) throws NotFoundExpection {
+        Pessoa pessoa = em.find(Pessoa.class, id);
+        if(pessoa == null) {
+            throw new NotFoundExpection("Não encontrado.");
+        }
+        return pessoa;
     }
 
-    public boolean remover(Integer id) {
+    public boolean remover(Integer id) throws NotFoundExpection {
+        buscaPorId(id);
         try {
             Pessoa pessoa = em.find(Pessoa.class, id);
             em.remove(pessoa);
@@ -48,8 +54,8 @@ public class PessoaDAO implements Serializable {
     public List<Pessoa> getLista() {
         return em.createQuery("from Pessoa order by id").getResultList();
     }
-
-    public void setLista(List<Pessoa> lista) {
+    
+     public void setLista(List<Pessoa> lista) {
         this.lista = lista;
     }
 
