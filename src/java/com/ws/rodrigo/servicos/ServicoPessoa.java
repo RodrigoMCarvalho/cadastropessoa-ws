@@ -10,10 +10,14 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.ws.ResponseWrapper;
 
-@WebService
+@WebService(serviceName = "ServicoPessoaWS")
+/*@SOAPBinding(style = SOAPBinding.Style.DOCUMENT,
+        use = SOAPBinding.Use.LITERAL,
+        parameterStyle = SOAPBinding.ParameterStyle.BARE) Problemas devido a interface List  */
 public class ServicoPessoa {
 
     @EJB
@@ -38,12 +42,13 @@ public class ServicoPessoa {
     @WebMethod(operationName = "BuscaPorNome")
     @WebResult(name = "BuscaPorNome")
     public List<Pessoa> buscaPorNome(@WebParam(name = "nome") @XmlElement(required = true) String nome) throws NotFoundExpection {
-        return dao.BuscaPorNome(nome);
+        return dao.buscaPorNome(nome);
     }
 
     @WebMethod(operationName = "CadastrarPessoa")
     @WebResult(name = "CadastrarPessoa")
     @ResponseWrapper(localName = "CadastramentoPessoa")
+    @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
     public Pessoa inserir(@WebParam(name = "pessoa") @XmlElement(required = true) PessoaDTO pessoaDTO) {
         return dao.inserir(pessoaDTO);
     }
