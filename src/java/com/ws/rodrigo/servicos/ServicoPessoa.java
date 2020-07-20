@@ -34,6 +34,12 @@ public class ServicoPessoa {
     public Pessoa buscaPorId(@WebParam(name = "id") @XmlElement(required = true) Integer id) throws NotFoundExpection {
         return dao.buscaPorId(id);
     }
+    
+    @WebMethod(operationName = "BuscaPorNome")
+    @WebResult(name = "BuscaPorNome")
+    public List<Pessoa> buscaPorNome(@WebParam(name = "nome") @XmlElement(required = true) String nome) throws NotFoundExpection {
+        return dao.BuscaPorNome(nome);
+    }
 
     @WebMethod(operationName = "CadastrarPessoa")
     @WebResult(name = "CadastrarPessoa")

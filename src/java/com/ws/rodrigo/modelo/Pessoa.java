@@ -54,20 +54,20 @@ public class Pessoa implements Serializable {
         this.id = id;
     }
 
-    public String getNomePessoa() {
+    public String getNome() {
         return nome;
     }
 
-    public void setNomePessoa(String nomePessoa) {
-        this.nome = nomePessoa;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getEmailPessoa() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmailPessoa(String emailPessoa) {
-        this.email = emailPessoa;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

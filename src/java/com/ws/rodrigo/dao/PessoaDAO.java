@@ -34,9 +34,18 @@ public class PessoaDAO implements Serializable {
     public Pessoa buscaPorId(Integer id) throws NotFoundExpection {
         Pessoa pessoa = em.find(Pessoa.class, id);
         if(pessoa == null) {
-            throw new NotFoundExpection("Não encontrado.");
+            throw new NotFoundExpection("Não encontrado");
         }
         return pessoa;
+    }
+    
+    public List<Pessoa> BuscaPorNome(String nome) throws NotFoundExpection {
+        List<Pessoa> resultado = em.createQuery("from Pessoa p where lower(p.nome) like lower('%" + nome + "%')").getResultList();
+        resultado.forEach(p -> System.out.println(p.getNome()));
+        if(resultado.isEmpty()) {
+            throw new NotFoundExpection("Não foram localizados dados para a sua busca");
+        }
+        return resultado;
     }
 
     public boolean remover(Integer id) throws NotFoundExpection {
