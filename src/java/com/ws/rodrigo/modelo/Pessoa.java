@@ -3,13 +3,15 @@ package com.ws.rodrigo.modelo;
 import com.ws.rodrigo.dto.PessoaDTO;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -25,7 +27,7 @@ public class Pessoa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @XmlElement(required = true)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "nome", length = 50, nullable = false)
@@ -37,13 +39,23 @@ public class Pessoa implements Serializable {
     @XmlElement(required = true)
     @NotBlank @NotNull
     private String email;
-
+    
+    @XmlElement
+    private Sexo sexo;
+    
+    @XmlElement
+    @OneToOne(cascade = CascadeType.ALL, 
+       fetch = FetchType.LAZY, optional = false)
+    private Endereco endereco;
+    
     public Pessoa() {
     }
     
     public Pessoa(PessoaDTO pessoaDTO){
         this.nome = pessoaDTO.getNome();
         this.email = pessoaDTO.getEmail();
+        this.sexo = pessoaDTO.getSexo();
+        this.endereco = pessoaDTO.getEndereco();
     }
 
     public Integer getId() {
@@ -69,6 +81,26 @@ public class Pessoa implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+
+    
+    
 
     @Override
     public int hashCode() {

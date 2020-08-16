@@ -39,7 +39,7 @@ public class PessoaDAO implements Serializable {
         return pessoa;
     }
     
-    public List<Pessoa> BuscaPorNome(String nome) throws NotFoundExpection {
+    public List<Pessoa> buscaPorNome(String nome) throws NotFoundExpection {
         List<Pessoa> resultado = em.createQuery("from Pessoa p where lower(p.nome) like lower('%" + nome + "%')").getResultList();
         resultado.forEach(p -> System.out.println(p.getNome()));
         if(resultado.isEmpty()) {

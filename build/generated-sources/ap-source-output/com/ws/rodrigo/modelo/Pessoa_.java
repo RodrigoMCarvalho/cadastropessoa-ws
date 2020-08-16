@@ -10,6 +10,7 @@ public abstract class Pessoa_ {
 
 	public static volatile SingularAttribute<Pessoa, String> nome;
 	public static volatile SingularAttribute<Pessoa, Integer> id;
+	public static volatile SingularAttribute<Pessoa, Sexo> sexo;
 	public static volatile SingularAttribute<Pessoa, String> email;
 
 }

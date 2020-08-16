@@ -48,7 +48,7 @@ public class ServicoPessoa {
     @WebMethod(operationName = "CadastrarPessoa")
     @WebResult(name = "CadastrarPessoa")
     @ResponseWrapper(localName = "CadastramentoPessoa")
-    @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
+    //@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
     public Pessoa inserir(@WebParam(name = "pessoa") @XmlElement(required = true) PessoaDTO pessoaDTO) {
         return dao.inserir(pessoaDTO);
     }
