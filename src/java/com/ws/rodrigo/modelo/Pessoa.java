@@ -5,7 +5,10 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,11 +44,12 @@ public class Pessoa implements Serializable {
     private String email;
     
     @XmlElement
+    @Enumerated(EnumType.STRING)
+    @NotNull
     private Sexo sexo;
     
     @XmlElement
-    @OneToOne(cascade = CascadeType.ALL, 
-       fetch = FetchType.LAZY, optional = false)
+    @Embedded
     private Endereco endereco;
     
     public Pessoa() {
@@ -97,10 +101,6 @@ public class Pessoa implements Serializable {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
-
-    
-    
 
     @Override
     public int hashCode() {
