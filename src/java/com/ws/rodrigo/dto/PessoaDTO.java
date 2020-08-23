@@ -22,7 +22,7 @@ public class PessoaDTO {
     
     @XmlElement(required = true)
     private Endereco endereco;
-
+    
     public String getNome() {
         return nome;
     }
@@ -46,6 +46,8 @@ public class PessoaDTO {
     public Endereco getEndereco() {
         return endereco;
     }
+
+    
     
     
     
