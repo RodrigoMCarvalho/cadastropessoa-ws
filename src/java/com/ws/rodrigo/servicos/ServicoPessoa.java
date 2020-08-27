@@ -9,6 +9,7 @@ import com.ws.rodrigo.modelo.TokenUsuario;
 import com.ws.rodrigo.validacao.NotFoundExpection;
 import com.ws.rodrigo.validacao.RespostaParecer;
 import com.ws.rodrigo.validacao.TipoResposta;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
@@ -29,6 +30,8 @@ public class ServicoPessoa {
     
     @EJB
     private ParecerDAO parecerDao;
+    
+    private List<String> erros = new ArrayList<>();
 
     public ServicoPessoa() {
     }
@@ -83,12 +86,20 @@ public class ServicoPessoa {
     @WebMethod(operationName = "BuscarParacerPorId")
     @WebResult(name = "Resposta")
     public RespostaParecer buscarParecerPorId(@WebParam(name="tokenUsuario", header=true) TokenUsuario token, 
-                                        @WebParam(name = "id") Long id) throws NotFoundExpection {
-        Parecer parecer = parecerDao.buscaPorId(id);
-        if(token.getToken().equals(parecer.getChave())) {
-            return new RespostaParecer(TipoResposta.SUCESSO, "Parecer enviado com sucesso!");
+                                              @WebParam(name = "idParecer") Long idParecer) throws NotFoundExpection {
+        erros = new ArrayList<>();
+        Parecer parecer = parecerDao.buscaPorId(idParecer);
+        if(!token.getToken().equalsIgnoreCase(parecer.getChave())) {
+            erros.add("Token: " + token.getToken() + " inválido.");
         }
-        return new RespostaParecer(TipoResposta.ERRO, "Parecer gerado por outra pessoa");
+        if(!token.getCodigo().equalsIgnoreCase(parecer.getDescricao())){
+            erros.add("Código: " + token.getCodigo() + " inválida.");
+        }
+        
+        if(!erros.isEmpty()) {
+            return new RespostaParecer(TipoResposta.ERRO, erros);
+        }
+        return new RespostaParecer(TipoResposta.SUCESSO, "Parecer enviado com sucesso!");
     }
     
     @WebMethod(operationName = "BuscarParacer")

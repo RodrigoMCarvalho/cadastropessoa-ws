@@ -1,5 +1,7 @@
 package com.ws.rodrigo.validacao;
 
+import com.ws.rodrigo.dto.ErroDto;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -14,6 +16,9 @@ public class RespostaParecer {
     
     @XmlElement
     private String mensagem;
+    
+    @XmlElement(name = "ListaErros")
+    private List<String> erro;
 
     public RespostaParecer() {
     }
@@ -21,6 +26,11 @@ public class RespostaParecer {
     public RespostaParecer(TipoResposta tipo, String mensagem) {
         this.tipo = tipo;
         this.mensagem = mensagem;
+    }
+
+    public RespostaParecer(TipoResposta tipo, List<String> erro) {
+        this.tipo = tipo;
+        this.erro = erro;
     }
 
     public TipoResposta getTipo() {
@@ -38,7 +48,13 @@ public class RespostaParecer {
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
     }
-    
-    
-  
+
+    public List<String> getErro() {
+        return erro;
+    }
+
+    public void setErro(List<String> erro) {
+        this.erro = erro;
+    }
+
 }

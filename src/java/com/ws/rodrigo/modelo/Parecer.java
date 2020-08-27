@@ -23,6 +23,9 @@ public class Parecer implements Serializable{
     
     @XmlElement(required = true)
     private String chave;
+    
+    @XmlElement(required = true)
+    private String codigo;
      
     @XmlElement(required = true)
     private String descricao;
@@ -49,6 +52,14 @@ public class Parecer implements Serializable{
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     
